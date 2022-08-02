@@ -1,11 +1,10 @@
-import AuthRouter from '../../lib/auth-router';
+import AuthPage from '../../components/auth-page';
 
 export default function Dashboard() {
     return (
-        <div>
-            <AuthRouter authed={true} redirect="/login" />
+        <AuthPage authed={true} redirect="/login">
             hello world
             <button onClick={() => user.signOut()}>Logout</button>
-        </div>
+        </AuthPage>
     );
 }

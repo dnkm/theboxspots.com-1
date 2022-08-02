@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { initializeAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseApp } from '../lib/firebase';
-import AuthRouter from '../lib/auth-router';
+import AuthPage from '../components/auth-page';
 
 export default function Login() {
     let [err, setErr] = useState(false);
@@ -24,17 +24,15 @@ export default function Login() {
     }
 
     return (
-        <div className={styles.page}>
-            <AuthRouter authed={false} redirect="/app" />
-
+        <AuthPage className={styles.page} authed={false} redirect="/app">
             <div className={styles.logo}>
                 <Link href="/"><a><Image src="/logo1.png" alt="" width={60} height={60} /></a></Link>
             </div>
 
             <div className={styles.login}>
-                <h1>Login to Organization</h1>
+                <h1>Attraction Management</h1>
 
-                <p className={err ? styles.error : undefined} >{err ? "Invalid credentials" : "Please ask your organization owner for credentials"}</p>
+                <p className={err ? styles.error : undefined} >{err ? "Invalid credentials" : "Please ask your attraction owner for credentials"}</p>
 
                 <div className={styles.border} />
 
@@ -51,6 +49,6 @@ export default function Login() {
                 <p>Create your organization account to start setting up spots!</p>
                 <Link href="/signup"><a>Sign Up</a></Link>
             </div>
-        </div >
+        </AuthPage >
     );
 }

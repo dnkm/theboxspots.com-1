@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from '../styles/Signup.module.scss';
 import { initializeAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebaseApp } from '../lib/firebase';
-import AuthRouter from '../lib/auth-router';
+import AuthPage from '../components/auth-page';
 
 export default function SignUp() {
     let [error, setError] = useState("");
@@ -25,9 +25,7 @@ export default function SignUp() {
     }
 
     return (
-        <div className={styles.page}>
-            <AuthRouter authed={false} redirect="/app" />
-
+        <AuthPage className={styles.page} authed={false} redirect="/app">
             <div />
 
             <form className={styles.form} onSubmit={submitForm}>
@@ -50,6 +48,6 @@ export default function SignUp() {
                     <i />
                 </button>
             </div>
-        </div >
+        </AuthPage >
     );
 }
