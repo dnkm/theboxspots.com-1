@@ -8,6 +8,7 @@ import axios from 'axios';
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     let [place, setPlace] = useState(null);
+    let [pageTitle, setPageTitle] = useState("Box Spots");
 
     useEffect(() => {
         let fauth = initializeAuth(firebaseApp);
@@ -18,7 +19,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
 
     const onLogin = async (fb) => {
         let token = await fb.getIdToken(false);
-        let p = await axios.post(`/api/auth/place`, undefined, { headers: { authorization: `bearer ${token}` } });
+        let p = (await axios.post(`/api/auth/place`, undefined, { headers: { authorization: `bearer ${token}` } })).data;
+
+        if (p.first_name?.length) setPageTitle("Welcome " + p.first_name);
 
         setPlace(p);
     }
@@ -28,9 +31,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
     }
 
     return (
-        <SiteContext.Provider value={{ place }}>
+        <SiteContext.Provider value={{ place, setPageTitle }}>
             <Head>
-                <title>Box Spots</title>
+                <title>{pageTitle}</title>
             </Head>
 
             <Component {...pageProps} />
